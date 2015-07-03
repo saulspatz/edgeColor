@@ -206,6 +206,7 @@
 		C7A2DA101B45BD540077D000 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INSTALL_PATH = /Users/Saul/Projects/SwiftProjects/VizingShannon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -213,6 +214,7 @@
 		C7A2DA111B45BD540077D000 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INSTALL_PATH = /Users/Saul/Projects/SwiftProjects/VizingShannon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
