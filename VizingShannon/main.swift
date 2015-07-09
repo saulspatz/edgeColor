@@ -199,14 +199,13 @@ class MultiGraph {
         // Is the graph properly colored so far?
         // Test that for every colored edge, the color is listed at both ends
         for e in self.edges {
-            let a = e.color
-            if a != 0 && (!e.x.colors.contains(a) || !e.y.colors.contains(a)) {
-                return false
+            if let a = e.color {
+                if (!e.x.colors.contains(a) || !e.y.colors.contains(a)) {return false}
             }
         }
         // Test that for each vertex, there are no duplicate colors.
         for v in self.vertices {
-            let coloredEdges = filter(v.edges){$0.color != 0}
+            let coloredEdges = filter(v.edges){$0.color != nil}
             if v.colors.count != coloredEdges.count {
                 return false
             }
@@ -214,7 +213,7 @@ class MultiGraph {
             // Should be able to use map(coloredEdges){$0.color}
             var c = Set<Color>()
             for e in coloredEdges {
-                c.insert(e.color)
+                c.insert(e.color!)
             }
             if c != v.colors {
                 return false
@@ -261,7 +260,7 @@ class Vertex: Hashable, Equatable {
 }
 
 class Edge: Hashable, Equatable{
-    var color:Color = 0  // 0 means uncolored
+    var color:Color?
     let ident:Int
     var hashValue:Int {return self.ident}
     let x:Vertex   // endpoints
@@ -276,12 +275,13 @@ class Edge: Hashable, Equatable{
         self.G = G
     }
     func colorWith(c:Color) {
-        self.x.colors.remove(self.color)
+        if let current = self.color {
+            self.x.colors.remove(current)
+            self.y.colors.remove(current)
+        }
         self.x.colors.insert(c)
-        self.y.colors.remove(self.color)
         self.y.colors.insert(c)
         self.color = c
-        assert(c != 0, "Coloring edge \(self.ident) with 0")
     }
 }
 
@@ -335,7 +335,7 @@ class Fan {
     func nextEdge()->Edge? {
         var answer:Edge? = nil
         for e in self.candidates {
-            if self.missingColors.contains(e.color) {
+            if self.missingColors.contains(e.color!) {
                 answer = e  // self.append will remove e from self.candidates
                 break
             }
@@ -380,7 +380,7 @@ class Fan {
         }
         var idx = 0
         for (i, y) in enumerate(self.rim) {
-            if y.missingColors.contains(old) {
+            if y.missingColors.contains(old!) {
                 idx = i
                 break
             }
