@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C7A2DA0C1B45BD540077D000 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2DA0B1B45BD540077D000 /* main.swift */; };
+		C7CB84561B46E67100AAF709 /* streamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CB84551B46E67100AAF709 /* streamReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		C7A2DA081B45BD540077D000 /* VizingShannon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = VizingShannon; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A2DA0B1B45BD540077D000 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C7CB84551B46E67100AAF709 /* streamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = streamReader.swift; path = VizingShannon/streamReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 		C7A2D9FF1B45BD540077D000 = {
 			isa = PBXGroup;
 			children = (
+				C7CB84551B46E67100AAF709 /* streamReader.swift */,
 				C7A2DA0A1B45BD540077D000 /* VizingShannon */,
 				C7A2DA091B45BD540077D000 /* Products */,
 			);
@@ -118,6 +121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7CB84561B46E67100AAF709 /* streamReader.swift in Sources */,
 				C7A2DA0C1B45BD540077D000 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,6 +242,7 @@
 				C7A2DA111B45BD540077D000 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
