@@ -19,9 +19,9 @@ typealias Color = Int
 // http://stackoverflow.com/questions/28489867/how-to-get-random-element-from-a-set-in-swift
 
 func randomElement<T>(s: Set<T>) -> T {
-let n = Int(arc4random_uniform(UInt32(s.count)))
-let i = advance(s.startIndex, n)
-return s[i]
+    let n = Int(arc4random_uniform(UInt32(s.count)))
+    let i = advance(s.startIndex, n)
+    return s[i]
 }
 
 /*
@@ -121,7 +121,7 @@ class MultiGraph {
     func writeColors()->Bool{
         var output:String = "N \(vertices.count) M \(edges.count) Delta \(delta) mu \(mu) colors \(colors.count)\n"
         for e in self.edges {
-            let detail = "\(e.ident) \(e.x.ident) \(e.y.ident) \(e.m) \(e.color)\n"
+            let detail = "\(e.ident) \(e.x.ident) \(e.y.ident) \(e.m) \(e.color!)\n"
             output += detail
         }
         var err:NSErrorPointer = nil
@@ -141,7 +141,7 @@ class MultiGraph {
             println("Failed to open file")
             return false
         }
-        var outCount = 1
+        var outCount = 0
         let n1 = inReader!.nextLine()?.toInt()
         let line1 = split(outReader!.nextLine()!){$0 == " "}.map{$0.toInt()}
         let n = line1[1]
@@ -178,6 +178,7 @@ class MultiGraph {
                 }
                 if color < 1 || color > k {
                     println("Illegal color \(color) in output line \(outCount+1)")
+                    println("\(line1)")
                     return false
                 }
                 nodes[x!].degree += 1
@@ -248,19 +249,13 @@ class Vertex: Hashable, Equatable {
     }
     
     func withColor(c:Color)->Edge? {
-        var answer:Edge? = nil
-        for e in self.edges{
-            if e.color == c {
-                answer = e
-                break
-            }
-        }
-        return answer
+        return filter(self.edges){$0.color == c}[0]
     }
+
 }
 
 class Edge: Hashable, Equatable{
-    var color:Color?
+    var color:Color? = nil
     let ident:Int
     var hashValue:Int {return self.ident}
     let x:Vertex   // endpoints
@@ -312,7 +307,7 @@ class Fan {
         self.rim.append((self.x == e.x) ? e.y : e.x)
         self.fan.append(e)
         self.missingColors = self.rim[0].missingColors
-        self.candidates = Set(filter(self.x.edges) {$0.color != 0})
+        self.candidates = Set(filter(self.x.edges) {$0.color != nil})
     }
     
     func color()->() {
